@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="120dp"
         app:backgroundTint="@color/purple_200"
         android:src="@drawable/ic_add_user"
         app:tint="@color/white"
