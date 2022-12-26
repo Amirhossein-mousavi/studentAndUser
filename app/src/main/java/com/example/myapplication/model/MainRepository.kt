@@ -1,5 +1,6 @@
 package com.example.myapplication.model
 
+import androidx.lifecycle.LiveData
 import com.example.myapplication.model.database.MyDataBase
 import com.example.myapplication.model.dataclass.EntityStudent
 import io.reactivex.Completable
@@ -9,7 +10,7 @@ import rx.schedulers.Schedulers
 
 class MainRepository (private val myDataBase: MyDataBase) {
 
-    fun getAllStudent():Single<List<EntityStudent>> {
+    fun getAllStudent():LiveData<List<EntityStudent>> {
         return myDataBase.daoStudent.getAllStudent()
     }
     fun insertOrUpdateStudent(student: EntityStudent) :Completable {
