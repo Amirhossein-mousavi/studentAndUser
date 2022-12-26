@@ -13,10 +13,10 @@ class MainRepository (private val myDataBase: MyDataBase) {
     fun getAllStudent():LiveData<List<EntityStudent>> {
         return myDataBase.daoStudent.getAllStudent()
     }
-    fun insertOrUpdateStudent(student: EntityStudent) :Completable {
+    suspend fun insertOrUpdateStudent(student: EntityStudent) {
         return myDataBase.daoStudent.insertOrUpdateStudent(student)
     }
-    fun deleteStudent(student: EntityStudent) :Completable{
+    suspend fun deleteStudent(student: EntityStudent){
         return myDataBase.daoStudent.deleteStudent(student)
     }
 

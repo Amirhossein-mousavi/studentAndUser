@@ -19,6 +19,12 @@ class AddStudentDialog : DialogFragment() {
 
     private lateinit var _binding : DialogAddBinding
     private lateinit var viewModel :DialogAddViewModel
+    private val bundle by lazy {
+        arguments ?: requireActivity().intent.extras!!
+    }
+    private val student by lazy {
+        bundle.getParcelable("student") as EntityStudent?
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,40 +38,63 @@ class AddStudentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = DialogAddViewModel(MainRepository(MyDataBase.getDatabase(requireContext())))
+        if (student == null) {
+            add()
+        } else {
+            val data = student!!
+            _binding.edtName.setText(data.name)
+            _binding.edtFamily.setText(data.family)
+            _binding.edtCourse.setText(data.course)
+            _binding.edtScore.setText(data.score)
+
+            update(data.id!!)
+        }
+
+
+
+    }
+
+    private fun update(id :Int) {
         _binding.btnCancel.setOnClickListener {
             dismiss()
         }
         _binding.btnConfirm.setOnClickListener {
-             val name = _binding.edtName.text.toString()
-             val family = _binding.edtFamily.text.toString()
-             val course = _binding.edtCourse.text.toString()
-             val score = _binding.edtScore.text.toString()
+            val name = _binding.edtName.text.toString()
+            val family = _binding.edtFamily.text.toString()
+            val course = _binding.edtCourse.text.toString()
+            val score = _binding.edtScore.text.toString()
             if (
                 name.isNotEmpty() &&
                 family.isNotEmpty() &&
                 course.isNotEmpty() &&
                 score.isNotEmpty()
             ) {
-                val student = EntityStudent(name , family, course, score)
+                val student = EntityStudent(name, family, course, score , id)
                 viewModel.insertOrUpdateStudent(student)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(object :CompletableObserver {
-                        override fun onSubscribe(d: Disposable) {
-
-                        }
-
-                        override fun onComplete() {
-                            dismiss()
-                        }
-
-                        override fun onError(e: Throwable) {
-                            Log.v("Test" , e.message!!)
-                        }
-                    })
+                dismiss()
             }
         }
+    }
 
-
-
+    fun add () {
+        _binding.btnCancel.setOnClickListener {
+            dismiss()
+        }
+        _binding.btnConfirm.setOnClickListener {
+            val name = _binding.edtName.text.toString()
+            val family = _binding.edtFamily.text.toString()
+            val course = _binding.edtCourse.text.toString()
+            val score = _binding.edtScore.text.toString()
+            if (
+                name.isNotEmpty() &&
+                family.isNotEmpty() &&
+                course.isNotEmpty() &&
+                score.isNotEmpty()
+            ) {
+                val student = EntityStudent(name, family, course, score)
+                viewModel.insertOrUpdateStudent(student)
+                dismiss()
+            }
+        }
     }
 }

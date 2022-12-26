@@ -16,9 +16,9 @@ interface DaoStudent {
 
     // this function is for insert or update a student
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdateStudent(student: EntityStudent ) : Completable
+    suspend fun insertOrUpdateStudent(student: EntityStudent )
 
     // this function is for delete a student
     @Delete
-    fun deleteStudent(student: EntityStudent) :Completable
+    suspend fun deleteStudent(student: EntityStudent)
 }

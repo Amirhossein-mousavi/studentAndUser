@@ -17,5 +17,11 @@
         android:id="@+id/studentAddDialog"
         android:name="com.example.myapplication.ui.student.dialog.AddStudentDialog"
         android:label="dialog_student"
-        tools:layout="@layout/dialog_add"/>
+        tools:layout="@layout/dialog_add">
+        <argument
+            android:name="student"
+            app:argType="com.example.myapplication.model.dataclass.EntityStudent"
+            app:nullable="true"
+            />
+    </dialog>
 </navigation>
