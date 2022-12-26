@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.databinding.DialogAddBinding
 import com.example.myapplication.model.MainRepository
+import com.example.myapplication.model.apimanager.ApiServiceSingleton
 import com.example.myapplication.model.database.MyDataBase
 import com.example.myapplication.model.dataclass.EntityStudent
 import io.reactivex.CompletableObserver
@@ -37,7 +38,8 @@ class AddStudentDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = DialogAddViewModel(MainRepository(MyDataBase.getDatabase(requireContext())))
+        viewModel = DialogAddViewModel(MainRepository(MyDataBase.getDatabase(requireContext()),
+        ApiServiceSingleton.apiService))
         if (student == null) {
             add()
         } else {

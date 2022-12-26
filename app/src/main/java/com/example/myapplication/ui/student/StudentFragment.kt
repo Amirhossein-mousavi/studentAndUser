@@ -13,6 +13,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentStudentBinding
 import com.example.myapplication.model.MainRepository
+import com.example.myapplication.model.apimanager.ApiServiceSingleton
 import com.example.myapplication.model.database.MyDataBase
 import com.example.myapplication.model.dataclass.EntityStudent
 import com.example.myapplication.viewmodel.StudentViewModel
@@ -37,7 +38,9 @@ class StudentFragment : Fragment() , StudentAdapter.StudentEvent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createAdapter()
-        viewModel = StudentViewModel(MainRepository(MyDataBase.getDatabase(requireContext())))
+        viewModel = StudentViewModel(MainRepository(MyDataBase.getDatabase(requireContext()),
+        ApiServiceSingleton.apiService
+            ))
         viewModel.getAllStudent().observe(this.viewLifecycleOwner , object :Observer<List<EntityStudent>> {
             override fun onChanged(t: List<EntityStudent>?) {
                 myAdapter.refreshData(ArrayList(t))

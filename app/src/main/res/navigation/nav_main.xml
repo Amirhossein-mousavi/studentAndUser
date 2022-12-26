@@ -24,4 +24,9 @@
             app:nullable="true"
             />
     </dialog>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.myapplication.ui.products.ProductFragment"
+        android:label="product"
+        tools:layout="@layout/fragment_product" />
 </navigation>

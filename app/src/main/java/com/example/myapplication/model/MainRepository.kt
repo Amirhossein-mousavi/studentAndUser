@@ -1,14 +1,15 @@
 package com.example.myapplication.model
 
 import androidx.lifecycle.LiveData
+import com.example.myapplication.model.apimanager.ApiService
 import com.example.myapplication.model.database.MyDataBase
 import com.example.myapplication.model.dataclass.EntityStudent
-import io.reactivex.Completable
-import io.reactivex.Scheduler
-import io.reactivex.Single
-import rx.schedulers.Schedulers
+import com.example.myapplication.model.dataclass.Products
 
-class MainRepository (private val myDataBase: MyDataBase) {
+class MainRepository (
+    private val myDataBase: MyDataBase,
+    private val apiService: ApiService
+    ) {
 
     fun getAllStudent():LiveData<List<EntityStudent>> {
         return myDataBase.daoStudent.getAllStudent()
@@ -18,6 +19,10 @@ class MainRepository (private val myDataBase: MyDataBase) {
     }
     suspend fun deleteStudent(student: EntityStudent){
         return myDataBase.daoStudent.deleteStudent(student)
+    }
+
+     fun getAllProducts () : List<Products.Product>{
+        return apiService.getAllProducts()
     }
 
 }

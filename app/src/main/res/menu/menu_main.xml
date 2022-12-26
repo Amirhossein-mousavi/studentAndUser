@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_student"
         android:id="@+id/menu_student"/>
     <item
-        android:title="user"
+        android:title="product"
         android:icon="@drawable/ic_user"
         android:id="@+id/menu_user"/>
     <item
