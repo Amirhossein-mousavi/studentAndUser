@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("/products")
-     fun getAllProducts() :List<Products.Product>
+     suspend fun getAllProducts() :Products
 
 }

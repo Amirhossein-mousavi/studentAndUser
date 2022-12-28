@@ -16,6 +16,7 @@ import com.example.myapplication.model.MainRepository
 import com.example.myapplication.model.apimanager.ApiServiceSingleton
 import com.example.myapplication.model.database.MyDataBase
 import com.example.myapplication.model.dataclass.EntityStudent
+import com.example.myapplication.util.Injector
 import com.example.myapplication.viewmodel.StudentViewModel
 import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,9 +39,7 @@ class StudentFragment : Fragment() , StudentAdapter.StudentEvent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createAdapter()
-        viewModel = StudentViewModel(MainRepository(MyDataBase.getDatabase(requireContext()),
-        ApiServiceSingleton.apiService
-            ))
+        viewModel = StudentViewModel(Injector.getMainRepository(requireContext()))
         viewModel.getAllStudent().observe(this.viewLifecycleOwner , object :Observer<List<EntityStudent>> {
             override fun onChanged(t: List<EntityStudent>?) {
                 myAdapter.refreshData(ArrayList(t))

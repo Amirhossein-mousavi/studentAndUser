@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -13,11 +15,15 @@ import com.example.myapplication.databinding.FragmentProductBinding
 import com.example.myapplication.model.MainRepository
 import com.example.myapplication.model.apimanager.ApiServiceSingleton
 import com.example.myapplication.model.database.MyDataBase
+import com.example.myapplication.model.dataclass.EntityProducts
 import com.example.myapplication.model.dataclass.Products
+import com.example.myapplication.util.Injector
+import com.example.myapplication.util.InternetChecker
+import com.example.myapplication.util.toast
 import com.example.myapplication.viewmodel.ProductViewModel
 
 
-class ProductFragment : Fragment() {
+class ProductFragment : Fragment() , ProductAdapter.ProductEvent {
     private lateinit var _binding : FragmentProductBinding
     private lateinit var viewModel : ProductViewModel
     private lateinit var myAdapter : ProductAdapter
@@ -33,22 +39,30 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialAdapter()
-        viewModel = ProductViewModel(
-            MainRepository(
-                MyDataBase.getDatabase(requireContext()) ,
-                ApiServiceSingleton.apiService
-            )
-        )
-        myAdapter.refreshData(viewModel.getAllProducts())
+        viewModel = ProductViewModel(Injector.getMainRepository(requireContext()))
+        if (InternetChecker().checkForInternet(requireContext()))
+        {
+            viewModel.insertAllProducts()
+        } else {
+            requireContext().toast("Please check your connection")
+        }
+        viewModel.showAllProducts().observe(this.viewLifecycleOwner) {
+            myAdapter.refreshData(it)
+        }
+
 
     }
 
     private fun initialAdapter(){
-        val data = arrayListOf<Products.Product>()
-         myAdapter = ProductAdapter(data)
+        val data = arrayListOf<EntityProducts>()
+         myAdapter = ProductAdapter(data , this)
         _binding.recyclerProduct.adapter = myAdapter
         _binding.recyclerProduct.layoutManager = LinearLayoutManager(context , RecyclerView.VERTICAL , false)
         _binding.recyclerProduct.recycledViewPool.setMaxRecycledViews(0,0)
+    }
+
+    override fun click() {
+
     }
 
 

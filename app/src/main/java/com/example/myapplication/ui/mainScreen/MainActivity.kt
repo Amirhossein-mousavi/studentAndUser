@@ -2,6 +2,7 @@ package com.example.myapplication.ui.mainScreen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.products.ProductFragment
+import com.example.myapplication.ui.student.StudentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -32,9 +34,10 @@ class MainActivity : AppCompatActivity() {
 
             when(it.itemId) {
                 R.id.menu_user -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.add(R.id.activity_main_nav_host_fragment , ProductFragment())
-                    transaction.commit()
+                    replaceFragment(ProductFragment())
+                }
+                R.id.menu_student -> {
+                    replaceFragment(StudentFragment())
                 }
             }
 
@@ -45,5 +48,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun replaceFragment(fragment : Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(_binding.fragmentContainerView.id , fragment)
+        transaction.commit()
     }
 }
