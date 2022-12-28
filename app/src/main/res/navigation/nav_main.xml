@@ -9,7 +9,7 @@
         android:name="com.example.myapplication.ui.student.StudentFragment"
         android:label="fragment_student"
         tools:layout="@layout/fragment_student" >
-        <action
+         <action
             android:id="@+id/action_studentFragment_to_studentAddDialog"
             app:destination="@id/studentAddDialog" />
     </fragment>
@@ -38,4 +38,9 @@
         android:name="com.example.myapplication."
         android:label="fragment_product_detail"
         tools:layout="@layout/fragment_product_detail" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.myapplication.ui.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

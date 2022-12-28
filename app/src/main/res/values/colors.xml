@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFB300</color>
     <color name="lightGrey">#707070</color>
+    <color name="pastel_orange_light">#FBE8DF</color>
 
 </resources>

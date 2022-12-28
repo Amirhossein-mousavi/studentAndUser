@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textSize">18dp</item>
     </style>
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/lightGrey</item>

@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.products.ProductFragment
+import com.example.myapplication.ui.settings.SettingsFragment
 import com.example.myapplication.ui.student.StudentFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -38,6 +39,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_student -> {
                     replaceFragment(StudentFragment())
+                }
+                R.id.menu_settings -> {
+                    replaceFragment(SettingsFragment())
                 }
             }
 
